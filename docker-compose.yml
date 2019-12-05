@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  server:
+    build: ./server
+    expose:
+      - ${APP_SERVER_PORT}
+    environment:
+      API_HOST: ${API_HOST}
+      APP_SERVER_PORT: ${APP_SERVER_PORT}
+    ports:
+      - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
+    volumes:
+      - ./server/src:/srv/app/admin-server/src
+    #command: npm run dev
+
+  client:
+    build: ./client
+    expose:
+      - ${VUE_APP_PORT}
+    environment:
+      VUE_APP_PORT: ${VUE_APP_PORT}
+    ports:
+      - ${VUE_APP_PORT}:${VUE_APP_PORT}
+    volumes:
+      - ./client/src:/srv/app/admin-client/src
+      - ./client/public:/srv/app/admin-client/public
+    #command: npm run start
